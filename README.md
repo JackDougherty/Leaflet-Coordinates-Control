@@ -2,14 +2,13 @@ Leaflet Coordinates Control
 ===========================
 Captures mouseclick and displays its coordinates with easy way to copy them.
 
-Demo
+Jack's Demo
 ----
-
-See demo [here](http://zimmicz.github.io/Leaflet-Coordinates-Control/).
+http://jackdougherty.github.io/Leaflet-Coordinates-Control/
 
 How to use
 ----------
-	var c = new L.Control.Coordinates(); # you can send options to the constructor if you want to, otherwise default values are used
+	var c = new L.Control.Coordinates();
 
 	c.addTo(map);
 

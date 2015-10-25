@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+	<title>Leaflet-Coordinates-Control</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+	<script src="Control.Coordinates.js"></script>
+	<link rel="stylesheet" href="Control.Coordinates.css"/>
+
+  <style>
+	  body { margin:0; padding:0; }
+	  #map { position:absolute; top:0; bottom:0; width:100%; }
+	</style>
+
+  </head>
+  <body>
+  	<div id="map"></div>
+  	<script>
+  	var map = L.map('map', { zoomControl: false })
+  	.setView([41.76, -72.69], 12); //
+
+  	// optional : customize link to view source code; add your own GitHub repository
+  	map.attributionControl
+  	.setPrefix("View <a href='http://github.com/jackdougherty/Leaflet-Control-Coordinates'>code on GitHub</a>, created with <a href='http://leafletjs.com' title='A JS library for interactive maps'>Leaflet</a>");
+
+		var controlLayers = L.control.layers( null, null, {
+			position: "topleft",
+			collapsed: false
+		}).addTo(map);
+
+		var lightAll = new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+		    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
+		}).addTo(map);
+		controlLayers.addBaseLayer(lightAll, 'CartoDB LightAll');
+
+		var Esri_WorldStreetMap = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri from multiple sources'
+		});
+		controlLayers.addBaseLayer(Esri_WorldStreetMap, 'Esri Streets');
+
+    // position zoom control further down
+    new L.control.zoom({position: "topleft",}).addTo(map);
+
+		// coordinate control tool for map construction
+		var c = new L.Control.Coordinates();
+		c.addTo(map);
+
+		map.on('click', function(e) {
+		    c.setCoordinates(e);
+		});
+
+    </script>
+  </body>
+  </html>
